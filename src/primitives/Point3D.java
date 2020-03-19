@@ -92,7 +92,9 @@ public class Point3D {
      */
     public Point3D add(Vector vector) {
         Point3D temp = vector.getHead();
-        return new Point3D(x.get() + temp.getX().get(), y.get() + temp.getY().get(), z.get() + temp.getZ().get());
+        return new Point3D(x.get() + temp.getX().get(),
+                y.get() + temp.getY().get(),
+                z.get() + temp.getZ().get());
     }
 
     /**
