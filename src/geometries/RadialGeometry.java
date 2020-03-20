@@ -13,11 +13,16 @@ public abstract class RadialGeometry implements Geometry{
      * copy constructor
      * @param newRadialGeometry
      */
-    public RadialGeometry(RadialGeometry newRadialGeometry) { _radius = newRadialGeometry.GetRadius(); }
+    public RadialGeometry(RadialGeometry newRadialGeometry) { _radius = newRadialGeometry.getRadius(); }
 
     /**
      * _radius getter
      * @return _radius
      */
-    public double GetRadius() { return _radius;}
+    public double getRadius() { return _radius;}
+
+    @Override
+    public String toString() {
+        return "radius = " + _radius + "\n";
+    }
 }
