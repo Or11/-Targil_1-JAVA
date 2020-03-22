@@ -2,7 +2,11 @@ package primitives;
 
 public class Vector {
     private Point3D head;
-    public final static Vector zero = new Vector(0.0, 0.0, 0.0);
+    public static final Vector zero = new Vector();
+
+    private Vector() {
+       head = Point3D.ZERO;
+    }
 
     /**
      * constructor Coordinate parameters
@@ -11,7 +15,7 @@ public class Vector {
      * @param newY
      * @param newZ
      */
-    public Vector(Coordinate newX, Coordinate newY, Coordinate newZ) throws IllegalArgumentException {
+    public Vector(Coordinate newX, Coordinate newY, Coordinate newZ) {
         if (newX.equals(0) && newY.equals(0) && newZ.equals(0))
             throw new IllegalArgumentException("zero Vector is illegal");
         head = new Point3D(newX, newY, newZ);
