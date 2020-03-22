@@ -3,12 +3,13 @@ package geometries;
 import primitives.Point3D;
 import primitives.Vector;
 
-public class Plane implements Geometry{
+public class Plane implements Geometry {
     Point3D _p;
     Vector _normal;
 
     /**
      * constructor
+     *
      * @param p
      * @param normal
      */
@@ -19,8 +20,9 @@ public class Plane implements Geometry{
 
     /**
      * constructor
-     * @param p
-     * @param normal
+     * @param a
+     * @param b
+     * @param c
      */
     public Plane(Point3D a, Point3D b, Point3D c) {
 
@@ -28,16 +30,22 @@ public class Plane implements Geometry{
     }
 
     /**
-     * point getter
-     * @return _p
+     * plane reference point getter
+     *
+     * @return Point3D point of reference
      */
-    public Point3D getPoint() { return _p;}
+    public Point3D getPoint() {
+        return _p;
+    }
 
     /**
      * normal getter
+     *
      * @return _normal
      */
-    public Vector getNormal() { return _normal;}
+    public Vector getNormal() {
+        return _normal;
+    }
 
     @Override
     public Vector getNormal(Point3D point) {

@@ -8,6 +8,7 @@ public class Sphere extends RadialGeometry {
 
     /**
      * constructor
+     *
      * @param radius
      * @param center
      */
@@ -17,10 +18,13 @@ public class Sphere extends RadialGeometry {
     }
 
     /**
-     *  center getter
+     * center getter
+     *
      * @return _center
      */
-    public Point3D getCenterPoint() { return _center;}
+    public Point3D getCenterPoint() {
+        return _center;
+    }
 
     @Override
     public Vector getNormal(Point3D point) {

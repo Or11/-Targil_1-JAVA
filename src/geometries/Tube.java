@@ -4,11 +4,15 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * class represent a tube shape
+ */
 public class Tube extends RadialGeometry {
     Ray _axisRay;
 
     /**
      * constructor
+     *
      * @param radius
      * @param axisRay
      */
@@ -19,9 +23,12 @@ public class Tube extends RadialGeometry {
 
     /**
      * axisRay getter
+     *
      * @return _axisRay
      */
-    public Ray getAxisRay() { return _axisRay;}
+    public Ray getAxisRay() {
+        return _axisRay;
+    }
 
 
     @Override

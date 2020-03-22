@@ -24,7 +24,7 @@ public class Vector {
      * @param newY
      * @param newZ
      */
-    public Vector(double newX, double newY, double newZ) {
+    public Vector(double newX, double newY, double newZ) throws IllegalArgumentException {
         if (newX == 0.0 && newY == 0.0 && newZ == 0.0)
             throw new IllegalArgumentException("zero Vector is illegal");
         head = new Point3D(newX, newY, newZ);
