@@ -25,7 +25,8 @@ public class Plane implements Geometry {
      * @param c
      */
     public Plane(Point3D a, Point3D b, Point3D c) {
-
+        _normal = null;
+        _p = new Point3D(a);
 
     }
 
