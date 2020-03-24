@@ -108,6 +108,7 @@ public class Vector {
      * @return double
      */
     public double dotProduct(Vector other) {
+        if(other == null) throw new NullPointerException("null");
         return head.getX().get() * other.head.getX().get() +
                 head.getY().get() * other.head.getY().get() +
                 head.getZ().get() * other.head.getZ().get();
