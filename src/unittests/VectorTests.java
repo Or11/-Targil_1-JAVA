@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import primitives.*;
 
+import java.lang.Math.*;
+
 import static org.junit.Assert.*;
 
 /**
@@ -100,9 +102,9 @@ public class VectorTests {
         assertTrue(Util.isZero(v1.dotProduct(v3)));
 
         //null argument Exception check
-        try{
+        try {
             v1.dotProduct(null);
-        }catch (Exception e){
+        } catch (Exception e) {
             assertTrue(e instanceof NullPointerException);
         }
     }
@@ -113,31 +115,45 @@ public class VectorTests {
      */
     @Test
     public void crossProduct() {
-        Vector v1 = new Vector(1,2,3);
-        Vector v2 = new Vector(1,3,5);
+        Vector v1 = new Vector(1, 2, 3);
+        Vector v2 = new Vector(1, 3, 5);
 
         // ============ Equivalence Partitions Tests ==============
         Vector v3 = v1.crossProduct(v2);
-        assertEquals("bad crossProduct result",new Vector(1,-2,1),v3);
+        assertEquals("bad crossProduct result", new Vector(1, -2, 1), v3);
 
         // =============== Boundary Values Tests ==================
-        try{
+        try {
             v1.crossProduct(v1);
             fail("not thrown Exception on zero vector");
-        }catch (Exception e){
+        } catch (Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
         }
     }
 
     @Test
     public void length() {
+        Vector v1 = new Vector(1, 2, 3);
         // ============ Equivalence Partitions Tests ==============
+        assertTrue(Util.isZero(v1.length() - Math.sqrt(14)));
         // =============== Boundary Values Tests ==================
+
     }
 
     @Test
     public void normalize() {
+        Vector v = new Vector(1, 2, 3);
+        Vector vCopy = new Vector(v);
+        Vector vCopyNormalize = vCopy.normalize();
         // ============ Equivalence Partitions Tests ==============
+
+        assertTrue("normalized() create new Vector", vCopy == vCopyNormalize);
+
+        vCopy = v.normalized();
+        assertTrue("normalized() not create new Vector", vCopy != vCopyNormalize);
+
+        assertTrue("not normalized correctly", Util.isZero(vCopy.length() - 1));
         // =============== Boundary Values Tests ==================
+
     }
 }
