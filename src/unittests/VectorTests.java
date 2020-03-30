@@ -87,19 +87,23 @@ public class VectorTests {
      */
     @Test
     public void dotProduct() {
-        Vector v1 = new Vector(1, 2, 3);
-        Vector v2 = new Vector(-2, -4, -6);
-        Vector v3 = new Vector(0, 3, -2);
+        Vector v1 = new Vector(1, 0, 1);
+
 
         // ============ Equivalence Partitions Tests ==============
-
-        //simple calculation check
-        assertTrue(Util.isZero(v1.dotProduct(v2) + 28));
-
+        //Test angle between two Vectors > 90 deg.
+        double result = v1.dotProduct(new Vector(-1, 0, 0));
+        assertTrue("bad dotProduct result angle > 90 deg.", Util.isZero(result + 1));
+        //Test angle between two Vectors < 90 deg.
+        result = v1.dotProduct(new Vector(1, 1, 5));
+        assertTrue("bad dotProduct result angle < 90 deg.", Util.isZero(result - 6));
+        //Test angle between two Vectors == 180 deg.
+        result = v1.dotProduct(new Vector(-1, 0, -1));
+        assertTrue("bad dotProduct result angle == 180 deg.", Util.isZero(result + 2));
         // =============== Boundary Values Tests ==================
 
         //orthogonal vectors
-        assertTrue(Util.isZero(v1.dotProduct(v3)));
+        assertTrue("bad dotProduct result orthogonal vectors.", Util.isZero(v1.dotProduct(new Vector(-1, 0, 1))));
 
         //null argument Exception check
         try {
@@ -115,16 +119,24 @@ public class VectorTests {
      */
     @Test
     public void crossProduct() {
-        Vector v1 = new Vector(1, 2, 3);
-        Vector v2 = new Vector(1, 3, 5);
+        Vector v1 = new Vector(1, 0, 1);
+
 
         // ============ Equivalence Partitions Tests ==============
-        Vector v3 = v1.crossProduct(v2);
-        assertEquals("bad crossProduct result", new Vector(1, -2, 1), v3);
+        //Test angle between two Vectors >90 deg.
+        Vector result = v1.crossProduct(new Vector(-1, 0, 0));
+        assertEquals("bad crossProduct result angle > 90 deg.", new Vector(0, -1, 0), result);
+        //Test angle between two Vectors <90 deg.
+        result = v1.crossProduct(new Vector(1, 1, 5));
+        assertEquals("bad crossProduct result angle < 90 deg.", new Vector(-1, -4, 1), result);
+        //Test angle between two Vectors == 90 deg.
+        result = v1.crossProduct(new Vector(-1, 0, 1));
+        assertEquals("bad crossProduct result angle < 90 deg.", new Vector(0, -2, 0), result);
 
         // =============== Boundary Values Tests ==================
         try {
-            v1.crossProduct(v1);
+            //Test Test angle between two Vectors == 180 deg.
+            v1.crossProduct(new Vector(-1, 0, -1));
             fail("not thrown Exception on zero vector");
         } catch (Exception e) {
             assertTrue(e instanceof IllegalArgumentException);
