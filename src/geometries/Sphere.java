@@ -28,7 +28,8 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public Vector getNormal(Point3D point) {
-        return null;
+        if (point == null) throw new NullPointerException("point can not be a null.");
+        return point.subtract(_center).normalized();
     }
 
     @Override

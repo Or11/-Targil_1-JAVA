@@ -16,7 +16,7 @@ public class CylinderTests {
         // ============ Equivalence Partitions Tests ==============
         //Test simple cylinder
         Ray r = new Ray(new Point3D(0, 1, 0), new Vector(0, 1, 0));
-        Cylinder c1 = new Cylinder(4, r,5);
+        Cylinder c1 = new Cylinder(4, r, 5);
 
         assertEquals("not good normal",
                 new Vector(1, 0, 0),
@@ -24,21 +24,34 @@ public class CylinderTests {
 
         //another Test
         Ray r1 = new Ray(Point3D.ZERO, new Vector(1, 1, 0));
-        Cylinder c2 = new Cylinder(2, r1,4);
-        assertEquals("", new Vector(0, 0, 1), c2.getNormal(new Point3D(2, 2, 2)));
+        Cylinder c2 = new Cylinder(2, r1, 4);
+        assertEquals("not good normal",
+                new Vector(0, 0, 1),
+                c2.getNormal(new Point3D(2, 2, 2)));
 
-        //Test point on the base
-        assertEquals(c2.getAxisRay().GetDirection(),c2.getNormal(new Point3D(1,1,0)));
+        //Test point on the base A
+        assertEquals("not good normal for a point on the base A.",
+                c2.getAxisRay().GetDirection(),
+                c2.getNormal(new Point3D(-0.5, 0.5, 0)));
+
+        //Test point on the base B
+        double sqrt = Math.sqrt(2d);
+        assertEquals("not good normal for a point on the base B.",
+                c2.getAxisRay().GetDirection(),
+                c2.getNormal(new Point3D(2 * sqrt, 2 * sqrt, 0)));
 
         // =============== Boundary Values Tests ==================
 
-        //Test point not on the Tube
-        try {
-            Vector v = c2.getNormal(new Point3D(0, 0, 3));
-            fail("not thrown Exception.");
-        } catch (Exception e) {
-            assertTrue(e instanceof IllegalArgumentException);
-        }
+        //Test on the edge of the base A
+        assertEquals("not good normal for a point on the edge of base A.",
+                c2.getAxisRay().GetDirection(),
+                c2.getNormal(new Point3D(-1, 1, 0)));
+
+        //Test on the edge of the base B
+        assertEquals("not good normal for a point on the edge of base B.",
+                c2.getAxisRay().GetDirection(),
+                c2.getNormal(new Point3D(2 * sqrt, 2 * sqrt, 2)));
+
 
         //Test point null
         try {

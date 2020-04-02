@@ -8,7 +8,7 @@ import primitives.Vector;
  * class represent a tube shape
  */
 public class Tube extends RadialGeometry {
-    Ray _axisRay;
+    private Ray _axisRay;
 
     /**
      * constructor
@@ -33,7 +33,9 @@ public class Tube extends RadialGeometry {
 
     @Override
     public Vector getNormal(Point3D point) {
-        return null;
+        double t = _axisRay.GetDirection().dotProduct(point.subtract(_axisRay.GetPoint()));
+        Point3D o = _axisRay.GetPoint().add(_axisRay.GetDirection().scale(t));
+        return point.subtract(o).normalized();
     }
 
     @Override

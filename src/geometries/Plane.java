@@ -20,14 +20,16 @@ public class Plane implements Geometry {
 
     /**
      * constructor
+     *
      * @param a
      * @param b
      * @param c
      */
     public Plane(Point3D a, Point3D b, Point3D c) {
-        _normal = null;
         _p = new Point3D(a);
-
+        Vector v1 = b.subtract(a);
+        Vector v2 = c.subtract(a);
+        _normal = v1.crossProduct(v2).normalized();
     }
 
     /**
@@ -50,7 +52,8 @@ public class Plane implements Geometry {
 
     @Override
     public Vector getNormal(Point3D point) {
-        return null;
+        if (point == null) throw new NullPointerException("point can not be a null.");
+        return _normal.normalized();
     }
 
     @Override

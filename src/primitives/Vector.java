@@ -40,8 +40,8 @@ public class Vector {
      * @param other
      */
     public Vector(Vector other) {
-        if (other == null || other.equals(zero))
-            throw new IllegalArgumentException("zero Vector is illegal");
+        if (other == null)
+            throw new NullPointerException("null Vector is illegal");
         head = new Point3D(other.getHead());
     }
 
