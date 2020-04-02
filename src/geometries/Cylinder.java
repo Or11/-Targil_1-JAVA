@@ -6,7 +6,7 @@ import primitives.Util;
 import primitives.Vector;
 
 public class Cylinder extends Tube {
-    double _height;
+    private double _height;
 
     /**
      * constructor

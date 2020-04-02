@@ -4,8 +4,8 @@ import primitives.Point3D;
 import primitives.Vector;
 
 public class Plane implements Geometry {
-    Point3D _p;
-    Vector _normal;
+    private Point3D _p;
+    private Vector _normal;
 
     /**
      * constructor
