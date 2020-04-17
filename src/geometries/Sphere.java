@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 public class Sphere extends RadialGeometry {
     private Point3D _center;
@@ -35,5 +38,10 @@ public class Sphere extends RadialGeometry {
     @Override
     public String toString() {
         return "Sphere: " + super.toString() + " center point = " + _center + "\n";
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 }
