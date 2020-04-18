@@ -7,10 +7,15 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+/**
+ * Testing Geometries
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 
 public class GeometriesTest {
     @Test
-    public void findIntsersections() {
+    public void findIntersections() {
         Geometries geometries = new Geometries();
         Ray ray = new Ray(new Point3D(1,0,0),new Vector(1,0,0));
         ArrayList a = geometries.findIntersections(ray);

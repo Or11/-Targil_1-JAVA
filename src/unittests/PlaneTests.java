@@ -6,6 +6,11 @@ import primitives.Point3D;
 import primitives.Vector;
 
 import static org.junit.Assert.*;
+/**
+ * Testing Plane
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 
 public class PlaneTests {
 

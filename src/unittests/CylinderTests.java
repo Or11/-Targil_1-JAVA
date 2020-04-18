@@ -8,6 +8,11 @@ import primitives.Ray;
 import primitives.Vector;
 
 import static org.junit.Assert.*;
+/**
+ * Testing Cylinder
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 
 public class CylinderTests {
 
