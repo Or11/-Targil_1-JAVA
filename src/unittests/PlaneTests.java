@@ -9,6 +9,11 @@ import primitives.Vector;
 import java.util.List;
 
 import static org.junit.Assert.*;
+/**
+ * Testing Plane
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 
 public class PlaneTests {
 

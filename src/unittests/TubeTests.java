@@ -7,7 +7,11 @@ import primitives.Ray;
 import primitives.Vector;
 
 import static org.junit.Assert.*;
-
+/**
+ * Testing Tube
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 public class TubeTests {
 
     @Test
