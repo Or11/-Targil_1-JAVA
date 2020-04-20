@@ -83,9 +83,9 @@ public class PlaneTests {
                         new Vector(0, 0, 1))));
 
         // TC13: Ray is orthogonal to the plane - starts before the plane (1 points)
-        result =  plane.findIntersections(new Ray(new Point3D(0, -1, -2),
-                new Vector(1, 2, 3)));
-        assertEquals("Ray intersects the plane", 1,
+        result =  plane.findIntersections(new Ray(new Point3D(0, 1, 0),
+                new Vector(1, 0, 0)));
+        assertEquals("Ray is orthogonal to the plane - starts before the plane", 1,
                 result.size());
         // TC14: Ray is orthogonal to the plane - starts on the plane (0 points)
         assertEquals("Ray is orthogonal to the plane - starts on the plane", null,
@@ -97,7 +97,14 @@ public class PlaneTests {
                         new Vector(1, 0, 0))));
 
         // TC16: Ray is neither orthogonal nor parallel to and begins at the plane (0 points)
+        assertEquals("Ray is neither orthogonal nor parallel to and begins at the plane", null,
+                plane.findIntersections(new Ray(new Point3D(1, 1, 1),
+                        new Vector(1, 2, 3))));
+
         // TC17: Ray is neither orthogonal nor parallel to the plane and begins in the same point which appears as reference point in the plane (0 points)
+        assertEquals("Ray is neither orthogonal nor parallel to the plane and begins in the same point which appears as reference point in the plane", null,
+                plane.findIntersections(new Ray(new Point3D(1, 1, 0),
+                        new Vector(1, 2, 3))));
 
     }
 
