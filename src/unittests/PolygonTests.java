@@ -102,32 +102,36 @@ public class PolygonTests {
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: ray intersects inside polygon/triangle (1 points)
-        List<Point3D> result =  p2.findIntersections(new Ray(new Point3D(1, 2, 1.5),
+        List<Point3D> result =  p2.findIntersections(new Ray(new Point3D(-0.5, 2, 0),
                 new Vector(1, 0, 1)));
         assertEquals("ray intersects inside polygon", 1,
                 result.size());
         // TC02: ray intersects outside against edge (0 points)
         assertEquals("ray intersects outside against edge", null,
-                p2.findIntersections(new Ray(new Point3D(1, 1, 2),
+                p2.findIntersections(new Ray(new Point3D(-1, 1, 0),
                         new Vector(1, 0, 1))));
         // TC03: ray intersects outside against vertex (0 points)
         assertEquals("ray intersects outside against vertex", null,
-                p2.findIntersections(new Ray(new Point3D(1, 2, 3),
+                p2.findIntersections(new Ray(new Point3D(-2, 2, 0),
                         new Vector(1, 0, 1))));
 
         // =============== Boundary Values Tests ==================
 
         // TC11: ray intersects on edge (0 points)
         assertEquals("ray intersects on edge", null,
-                p2.findIntersections(new Ray(new Point3D(1, 3, 3),
+                p2.findIntersections(new Ray(new Point3D(-2, 3, 0),
                         new Vector(1, 0, 1))));
         // TC12: ray intersects in vertex (0 points)
         assertEquals("ray intersects in vertex", null,
-                p2.findIntersections(new Ray(new Point3D(1, 2, 2),
+                p2.findIntersections(new Ray(new Point3D(-1, 2, 0),
                         new Vector(1, 0, 1))));
         // TC13: ray intersects on edge's continuation (0 points)
         assertEquals("ray intersects on edge's continuation", null,
-                p2.findIntersections(new Ray(new Point3D(1, 4, 0),
+                p2.findIntersections(new Ray(new Point3D(0, 4, -1),
+                        new Vector(1, 0, 1))));
+        // TC14: ray starts on the triangle (0 points)
+        assertEquals("ray starts on the triangle", null,
+                p2.findIntersections(new Ray(new Point3D(1, 2, 1.5),
                         new Vector(1, 0, 1))));
     }
 
