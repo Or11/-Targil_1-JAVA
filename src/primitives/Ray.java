@@ -26,4 +26,13 @@ public class Ray {
      */
     public Vector GetDirection() { return direction;}
 
+    /**
+     * get point on the ray
+     * @param t scale the vector
+     * @return Point3D
+     */
+    public Point3D getPoint(double t){
+        return point.add(direction.scale(t));
+    }
+
 }

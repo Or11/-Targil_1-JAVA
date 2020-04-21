@@ -36,7 +36,7 @@ public class Tube extends RadialGeometry {
     @Override
     public Vector getNormal(Point3D point) {
         double t = _axisRay.GetDirection().dotProduct(point.subtract(_axisRay.GetPoint()));
-        Point3D o = _axisRay.GetPoint().add(_axisRay.GetDirection().scale(t));
+        Point3D o = _axisRay.GetPoint().add(_axisRay.GetDirection().scale(t));//TODO refactoring
         return point.subtract(o).normalized();
     }
 
