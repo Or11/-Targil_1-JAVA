@@ -4,7 +4,12 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+
+import static primitives.Util.alignZero;
 
 public class Plane implements Geometry {
     private Point3D _p;
@@ -69,6 +74,17 @@ public class Plane implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
+
+        Point3D p0 = ray.GetPoint();
+        if (p0 == _p) return null;
+        Vector v = ray.GetDirection();
+        double denominator =  alignZero(_normal.dotProduct(v));
+        double numerator = alignZero(_normal.dotProduct(_p.subtract(p0)));
+        if (denominator == 0 || numerator == 0) return null;
+        double t = numerator/denominator;
+        if (t > 0) {
+            return List.of(ray.getPoint(t));
+        }
         return null;
     }
 }
