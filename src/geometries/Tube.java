@@ -29,14 +29,14 @@ public class Tube extends RadialGeometry {
      * @return _axisRay
      */
     public Ray getAxisRay() {
-        return _axisRay;
+        return new Ray(_axisRay.GetPoint(), _axisRay.GetDirection());
     }
 
 
     @Override
     public Vector getNormal(Point3D point) {
         double t = _axisRay.GetDirection().dotProduct(point.subtract(_axisRay.GetPoint()));
-        Point3D o = _axisRay.GetPoint().add(_axisRay.GetDirection().scale(t));
+        Point3D o = _axisRay.GetPoint().add(_axisRay.GetDirection().scale(t));//TODO refactoring
         return point.subtract(o).normalized();
     }
 
@@ -47,6 +47,31 @@ public class Tube extends RadialGeometry {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        return null;
+        Vector vTube = _axisRay.GetDirection();
+        Vector vectorV0 = ray.GetPoint().subtract(_axisRay.GetPoint());
+        Vector rayDirXvTube = vectorV0.crossProduct(vTube);
+        Vector vXvTube = ray.GetDirection().crossProduct(vTube);
+
+        // Cylinder [Ray(Point A,Vector V), r].
+        // Point P on infinite cylinder if ((P - A) x (V))^2 = r^2 * V^2
+        // P = O + t * V1
+        // expand : ((O - A) x (V) + t * (V1 x V))^2 = r^2 * V^2
+
+        double vTube2 = vTube.lengthSquared();
+        double a = vXvTube.lengthSquared();
+        double b = 2 * vXvTube.dotProduct(rayDirXvTube);
+        double c = rayDirXvTube.lengthSquared() - (_radius * _radius * vTube2);
+        double d = b * b - 4 * a * c;
+        if (d < 0) return null;
+
+        double t1 = (-b - Math.sqrt(d)) / (2 * a);
+        double t2 = (-b + Math.sqrt(d)) / (2 * a);
+        if (t1 <= 0 && t2 <= 0) return null;
+        if (t1 > 0 && t2 > 0)
+            return List.of(ray.getPoint(t1), ray.getPoint(t2));
+        if (t1 > 0)
+            return List.of(ray.getPoint(t1));
+        else
+            return List.of(ray.getPoint(t2));
     }
 }
