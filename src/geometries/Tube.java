@@ -2,6 +2,7 @@ package geometries;
 
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 import java.util.List;
@@ -48,24 +49,40 @@ public class Tube extends RadialGeometry {
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         Vector vTube = _axisRay.GetDirection();
-        Vector vectorV0 = ray.GetPoint().subtract(_axisRay.GetPoint());
-        Vector rayDirXvTube = vectorV0.crossProduct(vTube);
-        Vector vXvTube = ray.GetDirection().crossProduct(vTube);
+        Vector vectorV0;
+        Vector vXvTube;
+        Vector rayDirXvTube;
+        try {
+            vectorV0 = ray.GetPoint().subtract(_axisRay.GetPoint());
+        } catch (IllegalArgumentException e) {
+            vectorV0 = Vector.zero;
+        }
+        try {
+            rayDirXvTube = vectorV0.crossProduct(vTube);
+        } catch (IllegalArgumentException e) {
+            rayDirXvTube = Vector.zero;
+        }
+        try {
+            vXvTube = ray.GetDirection().crossProduct(vTube);
+        } catch (IllegalArgumentException e) {
+            vXvTube = Vector.zero;
+        }
 
         // Cylinder [Ray(Point A,Vector V), r].
         // Point P on infinite cylinder if ((P - A) x (V))^2 = r^2 * V^2
         // P = O + t * V1
         // expand : ((O - A) x (V) + t * (V1 x V))^2 = r^2 * V^2
 
-        double vTube2 = vTube.lengthSquared();
-        double a = vXvTube.lengthSquared();
-        double b = 2 * vXvTube.dotProduct(rayDirXvTube);
-        double c = rayDirXvTube.lengthSquared() - (_radius * _radius * vTube2);
-        double d = b * b - 4 * a * c;
+        double vTube2 = Util.alignZero(vTube.lengthSquared());
+        double a = Util.alignZero(vXvTube.lengthSquared());
+        double b = Util.alignZero(2 * vXvTube.dotProduct(rayDirXvTube));
+        double c = Util.alignZero(rayDirXvTube.lengthSquared() - (_radius * _radius * vTube2));
+        double d = Util.alignZero(b * b - 4 * a * c);
         if (d < 0) return null;
-
-        double t1 = (-b - Math.sqrt(d)) / (2 * a);
-        double t2 = (-b + Math.sqrt(d)) / (2 * a);
+        if (a == 0)
+            return null;
+        double t1 = Util.alignZero((-b - Math.sqrt(d)) / (2 * a));
+        double t2 = Util.alignZero((-b + Math.sqrt(d)) / (2 * a));
         if (t1 <= 0 && t2 <= 0) return null;
         if (t1 > 0 && t2 > 0)
             return List.of(ray.getPoint(t1), ray.getPoint(t2));

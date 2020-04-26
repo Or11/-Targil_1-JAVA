@@ -1,7 +1,10 @@
 package geometries;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import primitives.*;
+
 import static primitives.Util.*;
 
 /**
@@ -87,6 +90,40 @@ public class Polygon implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
+        ArrayList<Vector> vecLs = new ArrayList<>();
+        Point3D p0 = ray.GetPoint();
+        for (int i = 0; i < _vertices.size(); ++i) {
+            Point3D p = _vertices.get(i);
+            try {
+                vecLs.add(p.subtract(p0));
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
+        }
+        boolean[] normals = new boolean[_vertices.size()];
+        double t;
+        for (int i = 0; i < vecLs.size(); ++i) {
+            try {
+                t = (vecLs.get(i).crossProduct(vecLs.get((i + 1) % vecLs.size())).dotProduct(ray.GetDirection()));
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
+            if (t == 0) {
+                return null;
+            }
+            normals[i] = (t > 0);
+        }
+        for (boolean b : normals)
+            if (allTrueOrFalse(normals, true) || allTrueOrFalse(normals, false))
+                return _plane.findIntersections(ray);
         return null;
+    }
+
+    private static boolean allTrueOrFalse(boolean[] values, boolean b) {
+        for (boolean value : values) {
+            if (value != b)
+                return false;
+        }
+        return true;
     }
 }
