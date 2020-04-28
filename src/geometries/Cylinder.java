@@ -31,7 +31,7 @@ public class Cylinder extends Tube {
         return _height;
     }
 
-    public double getRayMultT(Point3D point) {
+    private double getRayMultT(Point3D point) {
         Point3D p = getAxisRay().GetPoint();
         Vector v = getAxisRay().GetDirection();
         return Util.alignZero(point.subtract(p).dotProduct(v));
@@ -57,63 +57,59 @@ public class Cylinder extends Tube {
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         Ray axisRay = getAxisRay();
-        Sphere sp1 = new Sphere(_radius, axisRay.GetPoint());
-        Sphere sp2 = new Sphere(_radius, axisRay.getPoint(_height));
+        Point3D A = axisRay.GetPoint();
+        Point3D B = axisRay.getPoint(_height);
         Plane p1 = new Plane(axisRay.GetPoint(), axisRay.GetDirection());
         Plane p2 = new Plane(axisRay.getPoint(_height), axisRay.GetDirection());
-        if (super.findIntersections(ray) == null) {
+        List<Point3D> intersections = super.findIntersections(ray);
+
+        if (intersections == null) {
             if (ray.GetDirection().equals(axisRay.GetDirection())) {
-                if (sp1.findIntersections(ray) != null)
-                    if (p1.findIntersections(ray) != null)
-                        return List.of(
-                                p1.findIntersections(ray).get(0),
-                                p2.findIntersections(ray).get(0));
-                    else
-                        return p2.findIntersections(ray);
-                else if (sp2.findIntersections(ray) != null)
+                if (baseInter(A, ray))
+                    return List.of(
+                            p1.findIntersections(ray).get(0),
+                            p2.findIntersections(ray).get(0));
+                else if (baseInter(B, ray))
                     return p2.findIntersections(ray);
 
             } else if (ray.GetDirection().equals(axisRay.GetDirection().scale(-1))) {
-                if (sp2.findIntersections(ray) != null)
-                    if (p2.findIntersections(ray) != null)
-                        return List.of(
-                                p2.findIntersections(ray).get(0),
-                                p1.findIntersections(ray).get(0));
-                    else
-                        return p1.findIntersections(ray);
+                if (baseInter(B, ray))
+                    return List.of(
+                            p2.findIntersections(ray).get(0),
+                            p1.findIntersections(ray).get(0));
+                else if (baseInter(A, ray))
+                    return p1.findIntersections(ray);
             }
 
-        } else if (super.findIntersections(ray).size() == 1) {
-            double t = getRayMultT(super.findIntersections(ray).get(0));
+        } else if (intersections.size() == 1) {
+            double t = getRayMultT(intersections.get(0));
             if (t > 0 && t < _height) {
-                if (sp1.findIntersections(ray) == null && sp2.findIntersections(ray) == null)
-                    return super.findIntersections(ray);
-                else if (sp1.findIntersections(ray) != null && p1.findIntersections(ray) != null)
-                    return List.of(p1.findIntersections(ray).get(0),ray.getPoint(t));
-                else if (p2.findIntersections(ray) != null)
-                    return List.of(p2.findIntersections(ray).get(0),ray.getPoint(t));
+                if (baseInter(A, ray))
+                    return List.of(p1.findIntersections(ray).get(0), ray.getPoint(t));
+                else if (baseInter(B, ray))
+                    return List.of(p2.findIntersections(ray).get(0), ray.getPoint(t));
+                return intersections;
             } else {
-                if (sp1.findIntersections(ray) == null && sp2.findIntersections(ray) == null)
-                    return null;
-                else if (sp1.findIntersections(ray) != null && p1.findIntersections(ray) != null)
+                if (baseInter(A, ray))
                     return List.of(p1.findIntersections(ray).get(0));
-                else if (p2.findIntersections(ray) != null)
+                else if (baseInter(B, ray))
                     return List.of(p2.findIntersections(ray).get(0));
+                return null;
             }
         } else {
-            double t1 = getRayMultT(super.findIntersections(ray).get(0));
-            double t2 = getRayMultT(super.findIntersections(ray).get(1));
+            double t1 = getRayMultT(intersections.get(0));
+            double t2 = getRayMultT(intersections.get(1));
             if (t1 > 0 && t1 < _height && t2 > 0 && t2 < _height)
-                return super.findIntersections(ray);
+                return intersections;
             else if (t1 > 0 && t1 < _height) {
-                if (sp1.findIntersections(ray) != null)
+                if (baseInter(B, ray))
                     return List.of(ray.getPoint(t1),
                             p1.findIntersections(ray).get(0));
                 else
                     return List.of(ray.getPoint(t1),
                             p2.findIntersections(ray).get(0));
             } else {
-                if (sp1.findIntersections(ray) != null) {
+                if (baseInter(A, ray)) {
                     return List.of(p1.findIntersections(ray).get(0),
                             ray.getPoint(t2));
                 } else {
@@ -123,5 +119,11 @@ public class Cylinder extends Tube {
             }
         }
         return null;
+    }
+
+    private boolean baseInter(Point3D point, Ray ray) {
+        Sphere sphere = new Sphere(_radius, point);
+        Plane plane = new Plane(point, getAxisRay().GetDirection());
+        return sphere.findIntersections(ray) != null && plane.findIntersections(ray) != null;
     }
 }

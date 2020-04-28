@@ -35,7 +35,7 @@ public class GeometriesTest {
 
         assertEquals("Wrong number of elements",2,(geometries.findIntersections(ray)).size());
 
-        // TC04: all geometries is intersected (5 points)
+        // TC04: all geometries is intersected (3 points)
         intersectables = new ArrayList<Intersectable>(List.of(new Sphere(1d, new Point3D(1.5, 2, 0)),
                 new Cylinder(1d,
                         new Ray(new Point3D(-2,2,-1),
@@ -45,14 +45,14 @@ public class GeometriesTest {
                         new Point3D(1,6,2))));
         geometries = new Geometries(intersectables);
 
-        assertEquals("Wrong number of points",5,(geometries.findIntersections(ray)).size());
+        assertEquals("Wrong number of points",3,(geometries.findIntersections(ray)).size());
 
         // ============ Equivalence Partitions Tests ==============
 
         // TC11: Some but not all geometries is intersected (5 points)
         geometries.add(new Sphere(1d, new Point3D(3,2,0)));
 
-        assertEquals("Wrong number of points",5,(geometries.findIntersections(ray)).size());
+        assertEquals("Wrong number of points",3,(geometries.findIntersections(ray)).size());
     }
 
     @Test
