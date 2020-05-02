@@ -6,6 +6,11 @@ import primitives.Ray;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class represent a Geometries composite
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 public class Geometries implements Intersectable {
 
     private List<Intersectable> intersectables;

@@ -8,7 +8,9 @@ import primitives.Vector;
 import java.util.List;
 
 /**
- * class represent a tube shape
+ * class represent a infinite tube shape
+ *
+ * @authors Yossef Matof & Simha Richard
  */
 public class Tube extends RadialGeometry {
     private Ray _axisRay;

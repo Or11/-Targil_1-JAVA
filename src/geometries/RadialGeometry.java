@@ -2,6 +2,8 @@ package geometries;
 
 /**
  * abstract class represent a radial shapes
+ *
+ * @authors Yossef Matof & Simha Richard
  */
 public abstract class RadialGeometry implements Geometry {
     public double _radius;

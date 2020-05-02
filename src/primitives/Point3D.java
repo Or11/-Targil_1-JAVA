@@ -2,6 +2,11 @@ package primitives;
 
 import java.lang.Math.*;
 
+/**
+ * Class to represent a Point in 3D Cartesian coordinate
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 public class Point3D {
     private Coordinate x, y, z;
 

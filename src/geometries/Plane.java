@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.ListIterator;
 
 import static primitives.Util.alignZero;
-
+/**
+ * class represent a plane in 3D Cartesian coordinate
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 public class Plane implements Geometry {
     private Point3D _p;
     private Vector _normal;
@@ -76,7 +80,7 @@ public class Plane implements Geometry {
     public List<Point3D> findIntersections(Ray ray) {
 
         Point3D p0 = ray.GetPoint();
-        if (p0 == _p) return null;
+        if (p0.equals( _p)) return null;
         Vector v = ray.GetDirection();
         double denominator =  alignZero(_normal.dotProduct(v));
         double numerator = alignZero(_normal.dotProduct(_p.subtract(p0)));

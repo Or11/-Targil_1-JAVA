@@ -1,5 +1,10 @@
 package primitives;
 
+/**
+ * Class for Ray in 3D space point and direction
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 public class Ray {
     private Point3D point;
     private Vector direction;

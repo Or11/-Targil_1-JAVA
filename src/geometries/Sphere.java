@@ -8,6 +8,11 @@ import java.util.List;
 
 import static primitives.Util.alignZero;
 
+/**
+ * class Sphere in 3D Cartesian coordinates
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 public class Sphere extends RadialGeometry {
     private Point3D _center;
 

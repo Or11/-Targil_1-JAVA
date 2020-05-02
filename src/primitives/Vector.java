@@ -1,11 +1,16 @@
 package primitives;
 
+/**
+ * Class to represent a Vector in 3D space
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 public class Vector {
     private Point3D head;
     public static final Vector zero = new Vector();
 
     private Vector() {
-       head = Point3D.ZERO;
+        head = Point3D.ZERO;
     }
 
     /**
@@ -108,7 +113,7 @@ public class Vector {
      * @return double
      */
     public double dotProduct(Vector other) {
-        if(other == null) throw new NullPointerException("null");
+        if (other == null) throw new NullPointerException("null");
         return head.getX().get() * other.head.getX().get() +
                 head.getY().get() * other.head.getY().get() +
                 head.getZ().get() * other.head.getZ().get();

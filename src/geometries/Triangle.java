@@ -3,7 +3,9 @@ package geometries;
 import primitives.Point3D;
 
 /**
- * class that represent a Triangle shape
+ * class that represent a 2D Triangle shape in 3D space
+ *
+ * @authors Yossef Matof & Simha Richard
  */
 public class Triangle extends Polygon {
     /**

@@ -7,6 +7,11 @@ import primitives.Vector;
 
 import java.util.List;
 
+/**
+ * class represent a Cylinder
+ *
+ * @authors Yossef Matof & Simha Richard
+ */
 public class Cylinder extends Tube {
     private double _height;
 
