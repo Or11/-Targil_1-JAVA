@@ -56,7 +56,7 @@ public class Sphere extends RadialGeometry {
         double d = (tm == 0) ? u.lengthSquared() : u.lengthSquared() - tm * tm;
         ;
         double r = this.getRadius();
-        if (d > r) {
+        if (Math.sqrt(d) > r) {
             return null;
         }
         double thSquere = alignZero(_radius * _radius - d);
