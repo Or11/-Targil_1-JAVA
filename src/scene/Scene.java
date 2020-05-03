@@ -44,52 +44,65 @@ public class Scene {
      */
    private double _distance;
 
+    /**
+     * constructor - create a new empty list of geometries shapes
+     * and sets the name
+     * @param sceneName
+     */
     public Scene(String sceneName){
         _geometries = new Geometries();
+        _name = sceneName;
     };
 
-    public String getName() {
-        return _name;
-    }
+    /**
+     * name getter
+     * @return _name
+     */
+    public String getName() { return _name; }
 
-    public AmbientLight getAmbientLight() {
-        return _ambientLight;
-    }
+    /**
+     * AmbientLight getter
+     * @return _ambientLight
+     */
+    public AmbientLight getAmbientLight() { return _ambientLight; }
 
-    public Camera getCamera() {
-        return _camera;
-    }
+    /**
+     * Camera getter
+     * @return _camera
+     */
+    public Camera getCamera() { return _camera; }
 
-    public Color getBackground() {
-        return _background;
-    }
+    /**
+     * Background color getter
+     * @return _background
+     */
+    public Color getBackground() { return _background; }
 
-    public double getDistance() {
-        return _distance;
-    }
+    /**
+     * distance getter
+     * @return _distance
+     */
+    public double getDistance() { return _distance; }
 
-    public void setAmbientLight(AmbientLight _ambientLight) {
-        this._ambientLight = _ambientLight;
-    }
+    /**
+     * Geometries getter
+     * @return _geometries
+     */
+    public Geometries getGeometries() { return _geometries; }
 
-    public Geometries getGeometries() {
-        return _geometries;
-    }
+    public void setAmbientLight(AmbientLight ambientLight) { this._ambientLight = ambientLight; }
 
-    public void setBackground(Color _background) {
-        this._background = _background;
-    }
+    public void setBackground(Color background) { this._background = background; }
 
-    public void setCamera(Camera _camera) {
-        this._camera = _camera;
-    }
+    public void setCamera(Camera camera) { this._camera = camera; }
 
-    public void setDistance(double _distance) {
-        this._distance = _distance;
-    }
+    public void setDistance(double distance) { this._distance = distance; }
 
     public void addGeometries(Intersectable... geometries) {
-
+       if (geometries == null) return;
+       for (Intersectable shape : geometries) {
+           _geometries.add(shape);
+       }
     }
 }
 
