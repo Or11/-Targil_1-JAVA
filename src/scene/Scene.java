@@ -2,6 +2,7 @@ package scene;
 
 import elements.*;
 import geometries.Geometries;
+import geometries.Intersectable;
 import primitives.Color;
 
 
@@ -44,49 +45,52 @@ public class Scene {
    private double _distance;
 
     public Scene(String sceneName){
+        _geometries = new Geometries();
     };
 
-    public String get_name() {
+    public String getName() {
         return _name;
     }
 
-    public AmbientLight get_ambientLight() {
+    public AmbientLight getAmbientLight() {
         return _ambientLight;
     }
 
-    public Camera get_camera() {
+    public Camera getCamera() {
         return _camera;
     }
 
-    public Color get_background() {
+    public Color getBackground() {
         return _background;
     }
 
-    public double get_distance() {
+    public double getDistance() {
         return _distance;
     }
 
-    public void set_ambientLight(AmbientLight _ambientLight) {
+    public void setAmbientLight(AmbientLight _ambientLight) {
         this._ambientLight = _ambientLight;
     }
 
-    public void set_background(Color _background) {
+    public Geometries getGeometries() {
+        return _geometries;
+    }
+
+    public void setBackground(Color _background) {
         this._background = _background;
     }
 
-    public void set_camera(Camera _camera) {
+    public void setCamera(Camera _camera) {
         this._camera = _camera;
     }
 
-    public void set_distance(double _distance) {
+    public void setDistance(double _distance) {
         this._distance = _distance;
     }
 
-    public void set_geometries(Geometries _geometries) {
-        this._geometries = _geometries;
+    public void addGeometries(Intersectable... geometries) {
+
     }
-
-
 }
 
 
