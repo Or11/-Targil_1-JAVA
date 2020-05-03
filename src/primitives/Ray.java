@@ -9,14 +9,6 @@ public class Ray {
     private Point3D point;
     private Vector direction;
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof Ray)) return false;
-        Ray oth = (Ray) obj;
-        return direction.equals(oth.GetDirection()) && point.equals(oth.GetPoint());
-    }
 
     /**
      * constructor
@@ -57,4 +49,12 @@ public class Ray {
         return point.add(direction.scale(t));
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof Ray)) return false;
+        Ray oth = (Ray) obj;
+        return direction.equals(oth.GetDirection()) && point.equals(oth.GetPoint());
+    }
 }
