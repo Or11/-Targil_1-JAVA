@@ -102,7 +102,7 @@ public class PolygonTests {
         // ============ Equivalence Partitions Tests ==============
 
         // TC01: ray intersects inside polygon/triangle (1 points)
-        List<Point3D> result =  p2.findIntersections(new Ray(new Point3D(-0.5, 2, 0),
+        List<Intersectable.GeoPoint> result =  p2.findIntersections(new Ray(new Point3D(-0.5, 2, 0),
                 new Vector(1, 0, 1)));
         assertEquals("ray intersects inside polygon", 1,
                 result.size());

@@ -104,7 +104,7 @@ public class integrationTests {
         for (int i = 0; i < Nx; ++i) {
             for (int j = 0; j < Ny; ++j) {
                 Ray ray = camera.constructRayThroughPixel(3, 3, j, i, 1, 3, 3);
-                List<Point3D> results = shape.findIntersections(ray);
+                List<Intersectable.GeoPoint> results = shape.findIntersections(ray);
                 if (results != null)
                     count += results.size();
             }

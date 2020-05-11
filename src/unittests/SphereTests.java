@@ -1,5 +1,6 @@
 package unittests;
 
+import geometries.Intersectable;
 import geometries.Sphere;
 import org.junit.Test;
 import primitives.Point3D;
@@ -77,10 +78,10 @@ public class SphereTests {
         // TC02: Ray starts before and crosses the sphere (2 points)
         Point3D p1 = new Point3D(0.0651530771650466, 0.355051025721682, 0);
         Point3D p2 = new Point3D(1.53484692283495, 0.844948974278318, 0);
-        List<Point3D> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0),
+        List<Intersectable.GeoPoint> result = sphere.findIntersections(new Ray(new Point3D(-1, 0, 0),
                 new Vector(3, 1, 0)));
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).getX().get() > result.get(1).getX().get())
+        if (result.get(0).getPoint().getX().get() > result.get(1).getPoint().getX().get())
             result = List.of(result.get(1), result.get(0));
         assertEquals("Ray crosses sphere", List.of(p1, p2), result);
 
@@ -116,7 +117,7 @@ public class SphereTests {
                 new Vector(0, 1, 0)));
 
         assertEquals("Wrong number of points", 2, result.size());
-        if (result.get(0).getY().get() > result.get(1).getY().get()) {
+        if (result.get(0).getPoint().getY().get() > result.get(1).getPoint().getY().get()) {
             result = List.of(result.get(1), result.get(0));
         }
         assertEquals("Line through O, ray crosses sphere",

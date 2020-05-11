@@ -4,18 +4,16 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import static primitives.Util.alignZero;
+
 /**
  * class represent a plane in 3D Cartesian coordinate
  *
  * @authors Yossef Matof & Simha Richard
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     private Point3D _p;
     private Vector _normal;
 
@@ -77,17 +75,17 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
 
         Point3D p0 = ray.GetPoint();
-        if (p0.equals( _p)) return null;
+        if (p0.equals(_p)) return null;
         Vector v = ray.GetDirection();
-        double denominator =  alignZero(_normal.dotProduct(v));
+        double denominator = alignZero(_normal.dotProduct(v));
         double numerator = alignZero(_normal.dotProduct(_p.subtract(p0)));
         if (denominator == 0 || numerator == 0) return null;
-        double t = numerator/denominator;
+        double t = numerator / denominator;
         if (t > 0) {
-            return List.of(ray.getPoint(t));
+            return List.of(new GeoPoint(this, ray.getPoint(t)));
         }
         return null;
     }

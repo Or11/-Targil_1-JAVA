@@ -60,39 +60,39 @@ public class Cylinder extends Tube {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         Ray axisRay = getAxisRay();
         Point3D A = axisRay.GetPoint();
         Point3D B = axisRay.getPoint(_height);
         Plane p1 = new Plane(axisRay.GetPoint(), axisRay.GetDirection());
         Plane p2 = new Plane(axisRay.getPoint(_height), axisRay.GetDirection());
-        List<Point3D> intersections = super.findIntersections(ray);
-
+        List<GeoPoint> intersections = super.findIntersections(ray);
         if (intersections == null) {
             if (ray.GetDirection().equals(axisRay.GetDirection())) {
                 if (baseInter(A, ray))
                     return List.of(
-                            p1.findIntersections(ray).get(0),
-                            p2.findIntersections(ray).get(0));
+                            new GeoPoint(this, p1.findIntersections(ray).get(0).getPoint()),
+                            new GeoPoint(this, p2.findIntersections(ray).get(0).getPoint()));
                 else if (baseInter(B, ray))
-                    return p2.findIntersections(ray);
+                    return List.of(new GeoPoint(this, p2.findIntersections(ray).get(0).getPoint()));
 
             } else if (ray.GetDirection().equals(axisRay.GetDirection().scale(-1))) {
                 if (baseInter(B, ray))
                     return List.of(
-                            p2.findIntersections(ray).get(0),
-                            p1.findIntersections(ray).get(0));
+                            new GeoPoint(this, p2.findIntersections(ray).get(0).getPoint()),
+                            new GeoPoint(this, p1.findIntersections(ray).get(0).getPoint()));
                 else if (baseInter(A, ray))
-                    return p1.findIntersections(ray);
+                    return List.of(new GeoPoint(this, p1.findIntersections(ray).get(0).getPoint()));
             }
 
         } else if (intersections.size() == 1) {
-            double t = getRayMultT(intersections.get(0));
+            double t = getRayMultT(intersections.get(0).getPoint());
             if (t > 0 && t < _height) {
                 if (baseInter(A, ray))
-                    return List.of(p1.findIntersections(ray).get(0), ray.getPoint(t));
+                    return List.of(new GeoPoint(this, p1.findIntersections(ray).get(0).getPoint()));
                 else if (baseInter(B, ray))
-                    return List.of(p2.findIntersections(ray).get(0), ray.getPoint(t));
+                    return List.of(new GeoPoint(this, p2.findIntersections(ray).get(0).getPoint()),
+                            new GeoPoint(this, ray.getPoint(t)));
                 return intersections;
             } else {
                 if (baseInter(A, ray))
@@ -102,24 +102,24 @@ public class Cylinder extends Tube {
                 return null;
             }
         } else {
-            double t1 = getRayMultT(intersections.get(0));
-            double t2 = getRayMultT(intersections.get(1));
+            double t1 = getRayMultT(intersections.get(0).getPoint());
+            double t2 = getRayMultT(intersections.get(1).getPoint());
             if (t1 > 0 && t1 < _height && t2 > 0 && t2 < _height)
                 return intersections;
             else if (t1 > 0 && t1 < _height) {
                 if (baseInter(B, ray))
-                    return List.of(ray.getPoint(t1),
-                            p1.findIntersections(ray).get(0));
+                    return List.of(new GeoPoint(this, ray.getPoint(t1)),
+                            new GeoPoint(this, p1.findIntersections(ray).get(0).getPoint()));
                 else
-                    return List.of(ray.getPoint(t1),
-                            p2.findIntersections(ray).get(0));
+                    return List.of(new GeoPoint(this, ray.getPoint(t1)),
+                            new GeoPoint(this, p2.findIntersections(ray).get(0).getPoint()));
             } else {
                 if (baseInter(A, ray)) {
-                    return List.of(p1.findIntersections(ray).get(0),
-                            ray.getPoint(t2));
+                    return List.of(new GeoPoint(this, p1.findIntersections(ray).get(0).getPoint()),
+                            new GeoPoint(this, ray.getPoint(t2)));
                 } else {
-                    return List.of(p2.findIntersections(ray).get(0),
-                            ray.getPoint(t2));
+                    return List.of(new GeoPoint(this, p2.findIntersections(ray).get(0).getPoint()),
+                            new GeoPoint(this, ray.getPoint(t2)));
                 }
             }
         }

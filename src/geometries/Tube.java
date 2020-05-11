@@ -49,7 +49,7 @@ public class Tube extends RadialGeometry {
     }
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findIntersections(Ray ray) {
         Vector vTube = _axisRay.GetDirection();
         Vector vectorV0;
         Vector vXvTube;
@@ -87,11 +87,12 @@ public class Tube extends RadialGeometry {
         double t2 = Util.alignZero((-b + Math.sqrt(d)) / (2 * a));
         if (t1 <= 0 && t2 <= 0) return null;
         if (t1 > 0 && t2 > 0)
-            return List.of(ray.getPoint(t1), ray.getPoint(t2));
+            return List.of(new GeoPoint(this, ray.getPoint(t1)),
+                    new GeoPoint(this, ray.getPoint(t2)));
         if (t1 > 0)
-            return List.of(ray.getPoint(t1));
+            return List.of(new GeoPoint(this, ray.getPoint(t1)));
         else
-            return List.of(ray.getPoint(t2));
+            return List.of(new GeoPoint(this, ray.getPoint(t2)));
     }
 }
 

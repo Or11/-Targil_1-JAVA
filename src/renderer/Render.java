@@ -54,7 +54,7 @@ public class Render {
         for (int row = 0; row < Ny; ++row) {
             for (int column = 0; column < Nx; ++column) {
                 ray = camera.constructRayThroughPixel(Nx, Ny, column, row, distance, width, height);
-                List<Point3D> result = geometries.findIntersections(ray);
+                List<Intersectable.GeoPoint> result = geometries.findIntersections(ray);
                 if (result == null)
                     _imageWriter.writePixel(column, row, background);
                 else
@@ -71,7 +71,7 @@ public class Render {
      * @param p point on a geometry
      * @return Color
      */
-    private Color calcColor(Point3D p) {
+    private Color calcColor(Intersectable.GeoPoint p) {
         return _scene.getAmbientLight().getIntensity();
     }
 
@@ -81,12 +81,12 @@ public class Render {
      * @param points list of intersection points
      * @return
      */
-    private Point3D getClosestPoint(List<Point3D> points) {
+    private Intersectable.GeoPoint getClosestPoint(List<Intersectable.GeoPoint> points) {
         Point3D p0 = _scene.getCamera().getLocation();
-        Point3D p = null;
+        Intersectable.GeoPoint p = null;
         double currentMin = Double.MAX_VALUE;
-        for (Point3D point : points) {
-            double d = p0.distance(point);
+        for (Intersectable.GeoPoint point : points) {
+            double d = p0.distance(point.getPoint());
             if (d < currentMin) {
                 currentMin = d;
                 p = point;
