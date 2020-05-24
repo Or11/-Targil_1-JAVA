@@ -1,4 +1,3 @@
-/*
 package unittests;
 
 import org.junit.Test;
@@ -10,20 +9,20 @@ import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
 
-*/
 /**
  * Test rendering abasic image
- * 
+ *
  * @author Dan
- *//*
+ */
+
 
 public class RenderTests {
 
-    */
-/**
+    /**
      * Produce a scene with basic 3D model and render it into a jpeg image with a
      * grid
-     *//*
+     */
+
 
     @Test
     public void basicRenderTwoColorTest() {
@@ -48,7 +47,7 @@ public class RenderTests {
         render.printGrid(50, java.awt.Color.YELLOW);
         render.writeToImage();
     }
-    
+
     @Test
     public void basicRenderMultiColorTest() {
         Scene scene = new Scene("Test scene");
@@ -77,4 +76,3 @@ public class RenderTests {
         render.writeToImage();
     }
 }
-*/

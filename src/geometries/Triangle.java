@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 
 /**
@@ -17,5 +18,17 @@ public class Triangle extends Polygon {
      */
     public Triangle(Point3D verticeA, Point3D verticeB, Point3D verticeC) {
         super(verticeA, verticeB, verticeC);
+    }
+
+    /**
+     * constructor with 3 vertices and a color
+     *
+     * @param color
+     * @param verticeA first vertice
+     * @param verticeB second vertice
+     * @param verticeC third vertice
+     */
+    public Triangle(Color color, Point3D verticeA, Point3D verticeB, Point3D verticeC) {
+        super(color,verticeA, verticeB, verticeC);
     }
 }

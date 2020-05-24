@@ -83,6 +83,11 @@ public class Polygon extends Geometry {
         }
     }
 
+    public Polygon(Color color,Point3D...vertices){
+        this(vertices);
+        this._emission = color;
+    }
+
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal();
@@ -115,7 +120,7 @@ public class Polygon extends Geometry {
         }
         for (boolean b : normals)
             if (allTrueOrFalse(normals, true) || allTrueOrFalse(normals, false))
-                return _plane.findIntersections(ray);
+                return List.of(new GeoPoint(this, _plane.findIntersections(ray).get(0).getPoint()));
         return null;
     }
 

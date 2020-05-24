@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -40,6 +41,31 @@ public class Plane extends Geometry {
         Vector v1 = b.subtract(a);
         Vector v2 = c.subtract(a);
         _normal = v1.crossProduct(v2).normalized();
+    }
+
+    /**
+     * constructor with Color and 3 Points
+     *
+     * @param color
+     * @param a
+     * @param b
+     * @param c
+     */
+    public Plane(Color color, Point3D a, Point3D b, Point3D c) {
+        this(a, b, c);
+        this._emission = color;
+    }
+
+    /**
+     * constructor with color, Point and normal
+     *
+     * @param color
+     * @param p
+     * @param normal
+     */
+    public Plane(Color color, Point3D p, Vector normal) {
+        this(p, normal);
+        this._emission = color;
     }
 
     /**
