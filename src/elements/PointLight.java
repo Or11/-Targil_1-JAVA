@@ -6,6 +6,11 @@ import primitives.Vector;
 
 public class PointLight extends Light implements LightSource {
     protected Point3D _position;
+    /**
+     * _kC :Constant attenuation
+     * _kL :Linear attenuation
+     * _kQ :Quadratic attenuation
+     */
     protected double _kC, _kL, _kQ;
     private int valuesNum = 3;
 
@@ -29,11 +34,16 @@ public class PointLight extends Light implements LightSource {
 
     @Override
     public Color getIntensity(Point3D p) {
-        return null;
+        double d = p.distance(_position);
+        double dSquared = p.distanceSquared(_position);
+        return (_intensity.reduce(_kC + _kL * d + _kQ * dSquared));
     }
 
     @Override
     public Vector getL(Point3D p) {
-        return null;
+        if (p.equals(_position)) {
+            return null;
+        }
+        return p.subtract(_position).normalized();
     }
 }

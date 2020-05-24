@@ -16,17 +16,17 @@ public class DirectionalLight extends Light implements LightSource {
      */
     public DirectionalLight(Color _intensity, Vector vector) throws IllegalArgumentException {
         super(_intensity);
-        this._direction = new Vector(vector);
+        this._direction = vector.normalized();
 
     }
 
     @Override
     public Color getIntensity(Point3D p) {
-        return null;
+        return _intensity;
     }
 
     @Override
     public Vector getL(Point3D p) {
-        return null;
+        return _direction.normalized();
     }
 }
