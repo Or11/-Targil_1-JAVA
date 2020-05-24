@@ -33,9 +33,24 @@ public class Cylinder extends Tube {
      * @param axisRay
      */
     public Cylinder(Color color, double radius, Ray axisRay, double height) {
-        super(radius, axisRay,color);
+        super(radius, axisRay, color);
         _height = height;
     }
+
+    /**
+     * constructor with material
+     *
+     * @param radius
+     * @param axisRay
+     * @param color
+     * @param _height
+     * @param material
+     */
+    public Cylinder(double radius, Ray axisRay, Color color, double _height, Material material) {
+        this(color, radius, axisRay, _height);
+        _material = material;
+    }
+
     /**
      * height getter
      *
@@ -45,6 +60,12 @@ public class Cylinder extends Tube {
         return _height;
     }
 
+    /**
+     * assist func to calculate distance t from ray start to point
+     *
+     * @param point point on the ray
+     * @return the distance t
+     */
     private double getRayMultT(Point3D point) {
         Point3D p = getAxisRay().GetPoint();
         Vector v = getAxisRay().GetDirection();

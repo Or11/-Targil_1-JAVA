@@ -36,6 +36,19 @@ public class Tube extends RadialGeometry {
     }
 
     /**
+     * constructor with Color and Material
+     *
+     * @param radius
+     * @param axisRay
+     * @param color
+     * @param material
+     */
+    public Tube(double radius, Ray axisRay, Color color, Material material) {
+        this(radius, axisRay, color);
+        this._material = material;
+    }
+
+    /**
      * axisRay getter
      *
      * @return _axisRay

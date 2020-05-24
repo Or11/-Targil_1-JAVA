@@ -83,9 +83,27 @@ public class Polygon extends Geometry {
         }
     }
 
-    public Polygon(Color color,Point3D...vertices){
+    /**
+     * ctor with color parameter
+     *
+     * @param color
+     * @param vertices
+     */
+    public Polygon(Color color, Point3D... vertices) {
         this(vertices);
         this._emission = color;
+    }
+
+    /**
+     * ctor with color and material parameters
+     *
+     * @param color
+     * @param material
+     * @param vertices
+     */
+    public Polygon(Color color, Material material, Point3D... vertices) {
+        this(color, vertices);
+        this._material = material;
     }
 
     @Override
