@@ -45,7 +45,7 @@ public class Sphere extends RadialGeometry {
      * @param color
      * @param material
      */
-    public Sphere(double radius, Point3D center, Color color, Material material) {
+    public Sphere(Color color, Material material, double radius, Point3D center) {
         this(radius, center, color);
         this._material = material;
     }

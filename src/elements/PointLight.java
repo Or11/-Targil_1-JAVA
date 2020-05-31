@@ -19,16 +19,18 @@ public class PointLight extends Light implements LightSource {
      *
      * @param _intensity color intensity
      * @param position   position of light source
-     * @param k          3 values kC,kL,kQ not more
+     * @param kC         :Constant attenuation
+     * @param kL         :Linear attenuation
+     * @param kQ         :Quadratic attenuation
      * @throws IllegalArgumentException
      */
-    public PointLight(Color _intensity, Point3D position, double... k) throws IllegalArgumentException {
+    public PointLight(Color _intensity, Point3D position, double kC, double kL, double kQ) throws IllegalArgumentException {
         super(_intensity);
-        if (k.length != valuesNum)
-            throw new IllegalArgumentException("wrong number of values");
-        this._kC = k[0];
-        this._kL = k[1];
-        this._kQ = k[2];
+        if (kC < 0 || kL < 0 || kQ < 0)
+            throw new IllegalArgumentException("Illegal Arguments");
+        this._kC = kC;
+        this._kL = kL;
+        this._kQ = kQ;
         this._position = new Point3D(position);
     }
 

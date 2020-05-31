@@ -42,7 +42,7 @@ public class Triangle extends Polygon {
      * @param verticeB second vertice
      * @param verticeC third vertice
      */
-    public Triangle(Material material, Color color, Point3D verticeA, Point3D verticeB, Point3D verticeC) {
+    public Triangle(Color color, Material material, Point3D verticeA, Point3D verticeB, Point3D verticeC) {
         super(color, material, verticeA, verticeB, verticeC);
     }
 }

@@ -125,7 +125,7 @@ public class Scene {
      *
      * @return List of scene light sources
      */
-    public List<LightSource> get_lights() {
+    public List<LightSource> getLights() {
         return _lights;
     }
 

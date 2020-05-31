@@ -23,7 +23,7 @@ public class Material {
      *
      * @return diffusion level
      */
-    public double get_kD() {
+    public double getKd() {
         return _kD;
     }
 
@@ -32,7 +32,7 @@ public class Material {
      *
      * @return specular level
      */
-    public double get_kS() {
+    public double getKs() {
         return _kS;
     }
 
@@ -41,7 +41,7 @@ public class Material {
      *
      * @return shininess level
      */
-    public int get_nShininess() {
+    public int getNShininess() {
         return _nShininess;
     }
 

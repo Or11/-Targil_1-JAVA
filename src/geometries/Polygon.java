@@ -136,8 +136,8 @@ public class Polygon extends Geometry {
             }
             normals[i] = (t > 0);
         }
-        for (boolean b : normals)
-            if (allTrueOrFalse(normals, true) || allTrueOrFalse(normals, false))
+        if (allTrueOrFalse(normals, true) || allTrueOrFalse(normals, false))
+            if (_plane.findIntersections(ray) != null)
                 return List.of(new GeoPoint(this, _plane.findIntersections(ray).get(0).getPoint()));
         return null;
     }

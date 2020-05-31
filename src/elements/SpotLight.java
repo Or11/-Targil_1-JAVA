@@ -9,17 +9,40 @@ import javax.swing.*;
 
 public class SpotLight extends PointLight {
     protected Vector _direction;
+    protected double _concentration = 1; // how much the light is concentrate
 
 
     /**
      * @param _intensity color
      * @param vector     direction
      * @param position   position
-     * @param k          3 values kC,kL,kQ not more
+     * @param kC         :Constant attenuation
+     * @param kL         :Linear attenuation
+     * @param kQ         :Quadratic attenuation
      * @throws IllegalArgumentException
      */
-    public SpotLight(Color _intensity, Vector vector, Point3D position, double... k) throws IllegalArgumentException {
-        super(_intensity, position, k);
+    public SpotLight(Color _intensity, Point3D position, Vector vector, double kC, double kL, double kQ) throws IllegalArgumentException {
+        super(_intensity, position, kC, kL, kQ);
+        _direction = vector.normalized();
+    }
+
+    /**
+     * constructor with a concentration parameter
+     *
+     * @param _intensity    color
+     * @param vector        direction
+     * @param position      position
+     * @param concentration how much the light is concentrate values >=1
+     * @param kC            :Constant attenuation
+     * @param kL            :Linear attenuation
+     * @param kQ            :Quadratic attenuation
+     * @throws IllegalArgumentException
+     */
+    public SpotLight(Color _intensity, Point3D position, Vector vector, double kC, double kL, double kQ, double concentration) throws IllegalArgumentException {
+        super(_intensity, position, kC, kL, kQ);
+        if (concentration < 0)
+            throw new IllegalArgumentException("illegal argument");
+        _concentration = concentration;
         _direction = vector.normalized();
     }
 
@@ -30,9 +53,9 @@ public class SpotLight extends PointLight {
             return Color.BLACK;
         double max = Math.max(0, projection);
         Color color = super.getIntensity(p);
-       /* if (_concentration != 1) {
-            factor = Math.pow(factor, _concentration);
-        }*/
+        if (_concentration != 1) {
+            max = Math.pow(max, _concentration); //define how concentrate the light
+        }
         return color.scale(max);
     }
 
